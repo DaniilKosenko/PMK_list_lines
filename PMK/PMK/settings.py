@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'list_lines.apps.ListLinesConfig',
     'core.apps.CoreConfig',
+    'smart_selects',
 ]
 
 MIDDLEWARE = [
