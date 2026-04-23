@@ -1,0 +1,38 @@
+{% load static %}
+
+<header>
+  <nav class="navbar navbar-light" style="background-color: lightskyblue">
+    <div class="container-fluid">
+      {% with request.resolver_match.view_name as view_name %}
+        <a class="navbar-brand" href="{% url 'list_lines:index' %}">
+          <img src= "{% static 'img/logo_pmk.png' %}" width="240" height="60" class="top" alt="">
+          <div class="badge text-bg-black mb-2 fs-4">
+            <p class="text-uppercase text-dark">Реестр линий</p>
+          </div>   
+         </a>                       
+        <ul class="nav nav-pills fs-5">
+          <li class="nav-item">
+            <a class="nav-link {% if view_name  == 'list_lines:index' %}active{% endif %}" href="{% url 'list_lines:index' %}">  
+              <p class="fs-4">Главная</p>
+            </a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if view_name  == 'list_lines:lines' %}active{% endif %}" href="{% url 'list_lines:lines' %}">  
+              Линии
+            </a> 
+          </li> 
+          <li class="nav-item" >
+            <a class="nav-link {% if view_name  == 'list_lines:equipment' %}active{% endif %}" href="{% url 'list_lines:equipment' %}">  
+              Оборудование
+            </a> 
+          </li>    
+          <li class="nav-item">
+            <a class="nav-link " href="admin">
+              <img src= "{% static 'img/admin.png' %}" width="70" height="40" class="top" alt="">
+            </a> 
+          </li>          
+        </ul>         
+      {% endwith %}     
+    </div>   
+  </nav> 
+</header>

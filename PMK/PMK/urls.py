@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('list_lines.urls', namespace='list_lines')),
     path('', include('smart_selects.urls')),
 ]
