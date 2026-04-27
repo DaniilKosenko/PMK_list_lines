@@ -1,19 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView
 
-from .models import ListDepartment
+from .models import ListDepartment, ListLine
 from .forms import ListDepartmentForm
 
 
-def index(request):
-    department_list = ListDepartment.objects.select_related()
-    form = ListDepartmentForm
-    context = ({'department_list': department_list, 'form': form})
-    return render(request, 'list_lines/index.html', context)
+class ListDepartment(ListView):
+    template_name = 'list_lines/index.html'
+    model = ListDepartment
+    context_object_name = 'department_list'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ListDepartmentForm()  # Добавляем форму в контекст
+        return context
 
 
-def lines(request):
-    template = 'list_lines/lines.html'
-    return render(request, template)
+class Lines(DetailView):
+    template_name = 'list_lines/lines.html'
+    model = ListLine
+    context_object_name = 'line'
 
 
 def equipment(request):

@@ -1,16 +1,12 @@
 from django.contrib import admin
-from .models import ListDepartment
-from .models import ListLine
-from .models import SystemLine
-from .models import ManufacturerList
-from .models import FrequencyConverterList
-
+from .models import (ListDepartment, ListLine, SystemLine, ManufacturerList,
+                     MaintenanceList, FrequencyConverterList)
 
 # Register your models here.
 admin.site.register(ListDepartment)
 admin.site.register(ListLine)
 admin.site.register(ManufacturerList)
-
+admin.site.register(MaintenanceList)
 
 class CPUModelAdmin(admin.ModelAdmin):
     list_display = (
@@ -22,6 +18,7 @@ class CPUModelAdmin(admin.ModelAdmin):
         'description',
         'line_type',
         'system_type',
+        'maintenance',
     )
     list_editable = (
         'is_status_programm',

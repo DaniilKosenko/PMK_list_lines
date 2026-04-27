@@ -1,10 +1,15 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
+
 {% block title %}
   Линии
 {% endblock %}
 {% block content %}
-  <h1>Линии</h1>
-  <p>
-   Линии
-  </p> 
+   <div class='album py-5'>
+    <div class='container'>
+      <div class='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'>
+        {% include "includes/line_card.html" %}         
+      </div>
+    </div>
+  </div>
 {% endblock %}

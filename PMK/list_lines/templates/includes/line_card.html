@@ -1,15 +1,15 @@
 <div class="card col-3">
   <div class="card-header">
-    {{ department.title }}
+    {{ line.title }}
   </div>
   <div class="col">
     <div class="card shadow-sm">
       <div class="card-body">
-        <p class="card-text fs-5">Линии</p>
-        {% for line in department.line.all %}
+        <p class="card-text fs-5">Системы</p>
+        {% for system in line.system.all %}
           <li> 
             <a href="{% url 'list_lines:lines' line.id %}">
-              {{ line.title }}
+              {{ system.title }}
             </a>
           </li>
         {% endfor %}
