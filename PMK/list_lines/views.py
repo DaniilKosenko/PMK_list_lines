@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 
-from .models import ListDepartment, ListLine
+from .models import ListDepartment, ListLine, SystemLine
 from .forms import ListDepartmentForm
 
 
@@ -22,6 +22,7 @@ class Lines(DetailView):
     context_object_name = 'line'
 
 
-def equipment(request):
-    template = 'list_lines/equipment.html'
-    return render(request, template)
+class System(DetailView):
+    template_name = 'list_lines/equipment.html'
+    model = SystemLine
+    context_object_name = 'system'

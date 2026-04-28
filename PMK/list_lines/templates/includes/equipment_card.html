@@ -1,0 +1,31 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Оборудование</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Производитель</th>
+      <th scope="col">Параметры</th>
+      <th scope="col">Инструкция</th>
+      <th scope="col">ЗИП</th>
+      <th scope="col">Примечание</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for FrequencyConverter in system.converter.all %}                
+        <tr>
+          <th scope="row">Частотный преобразователь</th>
+          <td>{{ FrequencyConverter.title }}</td>
+          <td>{{ FrequencyConverter.manufacturer }}</td>
+          <td class="{% if FrequencyConverter.is_status_programm %}table-success{% else %}table-danger{% endif %}">
+            {{ FrequencyConverter.status_text_program }}
+          </td>   
+          <td class="{% if FrequencyConverter.is_status_document %}table-success{% else %}table-danger{% endif %}">
+            {{ FrequencyConverter.status_text_document }}</td>
+          <td class="{% if FrequencyConverter.is_status_spare_part %}table-success{% else %}table-danger{% endif %}">
+            {{ FrequencyConverter.status_text_spare_part }}</td>
+          <td>{{ FrequencyConverter.description }}</td>               
+        </tr>
+      {% endfor %}
+  </tbody>
+</table>
+        

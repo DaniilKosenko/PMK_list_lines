@@ -2,6 +2,10 @@ from django.db import models
 from core.models import StatusCPUModel
 from smart_selects.db_fields import ChainedForeignKey
 
+IS_STATUS_CHOICES = [
+    (True, 'Да'),
+    (False, 'Нет'),
+]
 
 # создаем список подразделений
 class ListDepartment(models.Model):
@@ -78,8 +82,10 @@ class FrequencyConverterList(StatusCPUModel):
     title = models.CharField(max_length=100,
                              verbose_name='Частотный преобразователь')
     manufacturer = models.ForeignKey(ManufacturerList,
-                                     on_delete=models.CASCADE)
-    is_status_programm = models.BooleanField(verbose_name='Параметры')
+                                     on_delete=models.CASCADE,
+                                     verbose_name='Производитель')
+    is_status_programm = models.BooleanField(verbose_name='Параметры',
+                                             choices=IS_STATUS_CHOICES)
     line_type = models.ForeignKey(ListLine,
                                   on_delete=models.CASCADE,
                                   verbose_name='Участок')
@@ -90,7 +96,8 @@ class FrequencyConverterList(StatusCPUModel):
                                     auto_choose=True,
                                     sort=True,
                                     on_delete=models.CASCADE,
-                                    verbose_name='Системы')
+                                    verbose_name='Системы',
+                                    related_name='converter')
     maintenance = models.ForeignKey(MaintenanceList,
                                     on_delete=models.CASCADE,
                                     verbose_name='Отдел обслуживания',
