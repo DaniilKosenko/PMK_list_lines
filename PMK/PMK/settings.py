@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'smart_selects',
     'django_bootstrap5',
+    'django_tables2',
+    'django_filters',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +132,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap5.html'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'

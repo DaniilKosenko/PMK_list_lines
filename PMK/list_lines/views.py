@@ -1,8 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
+from django_tables2 import SingleTableMixin
+from django_filters.views import FilterView
 
-from .models import ListDepartment, ListLine, SystemLine
+from .models import (ListDepartment, ListLine,
+                     FrequencyConverterList)
 from .forms import ListDepartmentForm
+from .tables import EquipmentTable
+from .filters import EquipmentFilter
 
 
 class ListDepartment(ListView):
@@ -22,7 +27,8 @@ class Lines(DetailView):
     context_object_name = 'line'
 
 
-class System(DetailView):
+class FilteredTableEquipment(SingleTableMixin, FilterView):
+    table_class = EquipmentTable
+    model = FrequencyConverterList
     template_name = 'list_lines/equipment.html'
-    model = SystemLine
-    context_object_name = 'system'
+    filterset_class = EquipmentFilter

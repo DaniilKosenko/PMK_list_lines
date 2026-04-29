@@ -1,16 +1,12 @@
 {% extends "base.html" %}
-{% load django_bootstrap5 %}
-
-
-{% block title %}
-  Оборудование
-{% endblock %}
 {% block content %}
-   <div class='album py-5'>
-    <div class='container'>
-      <div class='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'>
-        {% include "includes/equipment_card.html" %}         
-      </div>
-    </div>
+  {% load django_tables2 %}
+  <div class="container mt-4">
+    <form method="get" class="mb-3">
+      {{ filter.form.as_p }}
+      <button type="submit" class="btn btn-primary">Применить фильтр</button>
+      <a href="?{{ filter.form.reset_url_params }}" class="btn btn-secondary">Сбросить фильтр</a>
+    </form>
+    {% render_table table %}
   </div>
 {% endblock %}
