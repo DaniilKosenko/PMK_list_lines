@@ -1,8 +1,8 @@
 import django_filters
-from .models import FrequencyConverterList
+from .models import EquipmentList
+
 
 class EquipmentFilter(django_filters.FilterSet):
     class Meta:
-        model = FrequencyConverterList
-        fields = {'title': ['icontains'], 'manufacturer': ['exact'],
-                  'is_status_programm': ['exact']}
+        model = EquipmentList
+        fields = {'equipment_type': ['exact']}

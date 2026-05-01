@@ -1,10 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django_tables2 import SingleTableMixin
 from django_filters.views import FilterView
 
 from .models import (ListDepartment, ListLine,
-                     FrequencyConverterList)
+                     EquipmentList)
 from .forms import ListDepartmentForm
 from .tables import EquipmentTable
 from .filters import EquipmentFilter
@@ -29,6 +28,12 @@ class Lines(DetailView):
 
 class FilteredTableEquipment(SingleTableMixin, FilterView):
     table_class = EquipmentTable
-    model = FrequencyConverterList
+    model = EquipmentList
     template_name = 'list_lines/equipment.html'
     filterset_class = EquipmentFilter
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        # Получаем pk из URL
+        # Фильтруем по внешнему ключу
+        return queryset.filter(system_type=self.kwargs.get('pk'))

@@ -5,7 +5,7 @@ IS_STATUS_CHOICES = [
     (False, 'Нет'),
 ]
 
-class StatusCPUModel(models.Model):
+class EquipmentBaseModel(models.Model):
     title = models.CharField(max_length=100,
                              verbose_name='Логический контроллер')
     is_status_programm = models.BooleanField(default=False,

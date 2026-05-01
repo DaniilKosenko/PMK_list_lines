@@ -1,5 +1,5 @@
 from django.db import models
-from core.models import StatusCPUModel
+from core.models import EquipmentBaseModel
 from smart_selects.db_fields import ChainedForeignKey
 
 IS_STATUS_CHOICES = [
@@ -77,10 +77,36 @@ class MaintenanceList(models.Model):
         return self.title
 
 
-# создаем список частотных преобразователей внутри участка
-class FrequencyConverterList(StatusCPUModel):
+# создаем список отделов обслуживания
+class EquipmentTypeList(models.Model):
     title = models.CharField(max_length=100,
-                             verbose_name='Частотный преобразователь')
+                             verbose_name='Тип оборудования')
+
+    class Meta:
+        verbose_name = 'тип оборудования'
+        verbose_name_plural = 'Типы оборудования'
+
+    def __str__(self):
+        return self.title
+    
+
+# создаем список отделов обслуживания
+class Location(models.Model):
+    title = models.CharField(max_length=100,
+                             verbose_name='Расположение')
+
+    class Meta:
+        verbose_name = 'расположение'
+        verbose_name_plural = 'Расположение'
+
+    def __str__(self):
+        return self.title
+
+
+# создаем список частотных преобразователей внутри участка
+class EquipmentList(EquipmentBaseModel):
+    title = models.CharField(max_length=100,
+                             verbose_name='Оборудование')
     manufacturer = models.ForeignKey(ManufacturerList,
                                      on_delete=models.CASCADE,
                                      verbose_name='Производитель')
@@ -97,15 +123,25 @@ class FrequencyConverterList(StatusCPUModel):
                                     sort=True,
                                     on_delete=models.CASCADE,
                                     verbose_name='Системы',
-                                    related_name='converter')
+                                    related_name='system')
     maintenance = models.ForeignKey(MaintenanceList,
                                     on_delete=models.CASCADE,
                                     verbose_name='Отдел обслуживания',
                                     null=False, blank=True)
+    equipment_type = models.ForeignKey(EquipmentTypeList,
+                                       on_delete=models.CASCADE,
+                                       verbose_name='Тип оборудования',
+                                       null=False, blank=True,
+                                       related_name='equipment')
+    location = models.ForeignKey(Location,
+                                 on_delete=models.CASCADE,
+                                 verbose_name='Расположение',
+                                 null=False, blank=True,
+                                 related_name='location')
 
     class Meta:
-        verbose_name = 'частотный преобразователь'
-        verbose_name_plural = 'Частотные преобразователи'
+        verbose_name = 'Оборудование'
+        verbose_name_plural = 'Оборудование'
 
     def __str__(self):
         return f'{self.line_type} — {self.system_type}'
